@@ -31,6 +31,9 @@ class MainView : View("The Title") {
   var b_clock_running = SimpleBooleanProperty()
   var b_toggle = SimpleBooleanProperty();
   var s_input_string = SimpleStringProperty("test");
+
+
+
   val a_s_button_text = arrayOf(
     SimpleStringProperty("hit me"),
     SimpleStringProperty("click me"),
@@ -96,7 +99,7 @@ class MainView : View("The Title") {
         action(){
           b_clock_running.set(!b_clock_running.get())
           if(!b_clock_running.get() ){
-            o_clock_controller.f_start_thread()
+            o_clock_controller.f_start_async()
 //            o_thread_clock_counter.stop()
           }else{
 //            o_thread_clock_counter.start()
@@ -144,7 +147,20 @@ class O_stylesheet: Stylesheet(){
 class O_clock_controller: Controller(){
   val n_interval_ms = 1000;
   var s_clock_string = SimpleStringProperty("click clock:")
+  fun f_start_async(){
+    var n_clock_ms = 0;
 
+    runAsync{
+      while(true){
+        println("n_interval_ms: ${n_interval_ms}")
+        //      s_clock_string.set("click clock: ${n_clock_ms}")
+        n_clock_ms += n_interval_ms;
+        Thread.sleep(n_interval_ms.toLong())
+        println(n_clock_ms)
+        s_clock_string.set(n_clock_ms.toString())
+      }
+    }
+  }
   fun f_start_thread(){
     var n_clock_ms = 0;
     val n_interval_ms = n_interval_ms
