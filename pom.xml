@@ -45,6 +45,7 @@
             <artifactId>kotlinx-coroutines-core</artifactId>
             <version>1.6.3</version>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
